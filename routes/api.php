@@ -17,5 +17,6 @@ use App\Http\Controllers\AuthController;
 */
 
 Route::prefix('auth')->group(function () {
-    Route::post('join', [App\Http\Controllers\AuthController::class, 'join']);          //회원가입
+    Route::post('join', [AuthController::class, 'join']);           //회원가입
+    Route::post('login', [AuthController::class, 'login']);         //로그인
 });

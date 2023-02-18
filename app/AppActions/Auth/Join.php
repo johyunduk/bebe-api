@@ -4,6 +4,7 @@ namespace App\AppActions\Auth;
 
 use App\AppActions\BaseAppAction;
 use App\Models\User;
+use Illuminate\Support\Facades\Hash;
 use Symfony\Component\HttpKernel\Exception\UnprocessableEntityHttpException;
 
 class Join extends BaseAppAction
@@ -43,6 +44,8 @@ class Join extends BaseAppAction
         if(!$this->validate()) {
             throw new UnprocessableEntityHttpException($this->errorMessage);
         }
+
+        $this->data['password'] =  Hash::make($this->data['password']);
 
         return User::query()
             ->create($this->data);

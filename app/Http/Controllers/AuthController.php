@@ -24,4 +24,13 @@ class AuthController extends Controller
 
         return $this->jsonResponse($action->execute());
     }
+
+    public function login(Request $request) : JsonResponse
+    {
+        $data = $request->all();
+
+        $action = AppActionFactory::getAction('Auth', 'Login', $data);
+
+        return $this->jsonResponse($action->execute());
+    }
 }
