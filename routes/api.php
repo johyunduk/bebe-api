@@ -4,6 +4,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\ProfileController;
 
 /*
 |--------------------------------------------------------------------------
@@ -19,5 +20,9 @@ use App\Http\Controllers\AuthController;
 Route::prefix('auth')->group(function () {
     Route::post('join', [AuthController::class, 'join']);           //회원가입
     Route::post('login', [AuthController::class, 'login']);         //로그인
-    Route::post('logout', [AuthController::class, 'logout']);        //로그아웃
+    Route::post('logout', [AuthController::class, 'logout']);       //로그아웃
+});
+
+Route::prefix('profile')->group(function () {
+    Route::get('/', [ProfileController::class, 'profile']);         //사용자 프로필
 });

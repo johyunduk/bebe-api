@@ -67,6 +67,14 @@ class Handler extends ExceptionHandler
             ], 403);
         });
 
+        $this->renderable(function (NotFound $e) {
+            return response()->json([
+                'result' => 'NotFound',
+                'result_message' => $e->getMessage(),
+                'status' => 404
+            ], 404);
+        });
+
         $this->renderable(function (BadEntity $e) {
             return response()->json([
                 'result' => 'Bad Entity',
