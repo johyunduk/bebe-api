@@ -3,9 +3,9 @@
 namespace App\AppActions\Auth;
 
 use App\AppActions\BaseAppAction;
+use App\Exceptions\BadEntity;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
-use Symfony\Component\HttpKernel\Exception\UnprocessableEntityHttpException;
 
 class Join extends BaseAppAction
 {
@@ -39,10 +39,13 @@ class Join extends BaseAppAction
         return true;
     }
 
+    /**
+     * @throws BadEntity
+     */
     public function execute(): mixed
     {
         if(!$this->validate()) {
-            throw new UnprocessableEntityHttpException($this->errorMessage);
+            throw new BadEntity($this->errorMessage);
         }
 
         $this->data['password'] =  Hash::make($this->data['password']);

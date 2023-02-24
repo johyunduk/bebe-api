@@ -43,8 +43,36 @@ class Handler extends ExceptionHandler
      */
     public function register()
     {
-        $this->reportable(function (Throwable $e) {
-            //
+        $this->renderable(function (BadRequest $e) {
+            return response()->json([
+                'result' => "BadRequest",
+                'result_message' => $e->getMessage(),
+                'status' => 400
+            ], 400);
+        });
+
+        $this->renderable(function (Unauthorize $e) {
+            return response()->json([
+                'result' => 'Unauthorized',
+                'result_message' => $e->getMessage(),
+                'status' => 401
+            ], 401);
+        });
+
+        $this->renderable(function (Forbidden $e) {
+            return response()->json([
+                'result' => 'Forbidden',
+                'result_message' => '요청 권한이 없습니다.',
+                'status' => 403
+            ], 403);
+        });
+
+        $this->renderable(function (BadEntity $e) {
+            return response()->json([
+                'result' => 'Bad Entity',
+                'result_message' => $e->getMessage(),
+                'status' => 422
+            ], 422);
         });
     }
 }
