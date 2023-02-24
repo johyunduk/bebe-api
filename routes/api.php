@@ -25,4 +25,5 @@ Route::prefix('auth')->group(function () {
 
 Route::prefix('profile')->group(function () {
     Route::get('/', [ProfileController::class, 'profile']);         //사용자 프로필
+    Route::put('/', [ProfileController::class, 'editProfile']);     //사용자 프로필 수정
 });
