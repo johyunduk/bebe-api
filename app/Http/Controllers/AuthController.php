@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\AppActions\AppActionFactory;
+use App\Exceptions\Unauthorize;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
@@ -32,5 +33,14 @@ class AuthController extends Controller
         $action = AppActionFactory::getAction('Auth', 'Login', $data);
 
         return $this->jsonResponse($action->execute());
+    }
+
+    public function logout(Request $request) : JsonResponse
+    {
+        $user = $request->user();
+
+        $user->currentAccessToken()->delete();
+
+        return $this->jsonResponse(['result' => '로그아웃 성공']);
     }
 }
